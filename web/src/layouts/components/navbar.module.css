@@ -1,0 +1,13 @@
+
+.navBar {
+  background-color: #1A1A1A !important;
+  z-index: 99;
+  justify-content: space-between !important;
+  padding: 0.5em 1em;
+}
+.menu-top {
+  color: white;
+}
+.logo {
+  color: white;
+}

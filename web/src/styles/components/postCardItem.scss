@@ -1,0 +1,53 @@
+.post-card-item {
+  .card {
+    padding: 1em;
+    background: $color-lightest;
+    border-radius: 10px;
+    box-shadow: none;
+    display: block;
+    width: 100%;
+    h4 {
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+
+    .right {
+      float: right;
+      transition: 1s ease-in-out;
+
+      .imagePost {
+        width: 220px;
+        height: 220px;
+        border-radius: 50% !important;
+        overflow: hidden;
+      }
+
+      .imagePost {
+        cursor: pointer;
+        // img:hover {
+        //   transform: scale(1.3) rotate(-10deg);
+        //   transition: 0.5s ease-in-out;
+
+        // }
+      }
+    }
+  }
+  .card:hover {
+    background: $primary  !important;
+    h4 {
+      font-weight: bold;
+      color: $color-primary;
+      cursor: pointer;
+    }
+    .imagePost {
+      img {
+        transform: scale(1.3) rotate(-10deg);
+        transition: 0.5s ease-in-out;
+      }
+    }
+  }
+  .active {
+    background: $primary  !important;
+  }
+}

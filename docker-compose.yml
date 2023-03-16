@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:2.8
+    restart: unless-stopped
+    command:
+    - --api.dashboard=true
+    - --entrypoints.http.address=:80
+    - --providers.docker
+    - --providers.docker.network=${COMPOSE_PROJECT_NAME}_frontend
+    - --providers.docker.watch=true
+    - --providers.docker.exposedbydefault=false
+    ports:
+    - ${PORT:-80}:80
+    labels:
+    - traefik.enable=true
+    - traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)
+    - traefik.http.routers.traefik.service=api@internal
+    - traefik.http.middlewares.traefik-dashboard.redirectRegex.regex=/
+    - traefik.http.middlewares.traefik-dashboard.redirectRegex.replacement=/dashboard/
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+
+  php:
+    image: phamhieu98/php-dev:8.1.9-alpine-3.16
+    restart: unless-stopped
+    working_dir: /srv/app
+    environment:
+      DOCUMENT_ROOT: /srv/app/public
+    volumes:
+    - ./api:/srv/app
+    labels:
+    - traefik.enable=true
+    - traefik.http.services.${COMPOSE_PROJECT_NAME}-api.loadbalancer.server.port=80
+    - traefik.http.routers.api.rule=Host(`${DOMAIN}`) && PathPrefix(`/api`)
+    - traefik.http.routers.socket-auth.rule=Host(`${DOMAIN}`) && PathPrefix(`/broadcasting`)
+    - traefik.http.routers.${COMPOSE_PROJECT_NAME}-telescope.rule=Host(`${DOMAIN}`) && (PathPrefix(`/telescope`) || PathPrefix(`/vendor`))
+    - traefik.http.routers.${COMPOSE_PROJECT_NAME}-auth.rule=Host(`${DOMAIN}`) && (PathPrefix(`/serviceLogin/callback`))
+
+  redis:
+    image: redis:7.0-alpine
+    restart: unless-stopped
+    volumes:
+    - ${PATH_DATA:-./.data}/redis:/data
+
+  mysql:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    mem_limit: ${MYSQL_MEMORY_LIMIT:-1G}
+    volumes:
+      - ${PATH_DATA:-./.data}/mysql:/var/lib/mysql
+    ports:
+      - ${DB_PORT:-3306}:3306
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+  mailcatcher:
+    image: schickling/mailcatcher
+    restart: unless-stopped
+    labels:
+    - traefik.enable=true
+    - traefik.http.routers.${COMPOSE_PROJECT_NAME}-mailcatcher.rule=Host(`${MAILCATCHER_DOMAIN}`)
+    - traefik.http.services.${COMPOSE_PROJECT_NAME}-mailcatcher.loadbalancer.server.port=1080
+  web:
+    image: node:14-alpine
+    restart: unless-stopped
+    tty: true
+    working_dir: /srv/web
+    environment:
+      APP_URL: http://${DOMAIN}:${PORT}
+    labels:
+    - traefik.enable=true
+    - traefik.http.routers.web.rule=Host(`${DOMAIN}`)
+    - traefik.http.services.web.loadbalancer.server.port=3000
+    volumes:
+    - ./web:/srv/web
+    - ${YARN_CACHE_DIR:-~/.cache/yarn}:/tmp/.cache/yarn

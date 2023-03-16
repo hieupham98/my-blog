@@ -1,0 +1,16 @@
+@import 'colors';
+
+.navBar {
+  background-color: $primary !important;
+  z-index: 99;
+  justify-content: space-between !important;
+  padding: 0.5em 1em;
+
+  .menu-top {
+    color: white !important;
+  }
+}
+
+.logo {
+  color: white;
+}

@@ -1,0 +1,146 @@
+@import 'common/navbar.scss';
+@import 'common/body.scss';
+@import 'common/footer.scss';
+@import 'common/markdown.scss';
+@import 'common/sidebar.scss';
+@import 'admin/admin.scss';
+@import 'components/postCardItem.scss';
+@import 'home';
+
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  transition: 0.2s ease-in;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.date-time {
+  font-size: 11px ;
+  color: $color-gray;
+}  
+
+.button-primary {
+  width: 200px !important;
+  padding: 0.5em 2em;
+  color: white;
+  border-radius: 20px !important;
+  background: $color-primary !important;
+  border: 2px solid $color-primary !important;
+  transition: 0.2s ease-in;
+  font-family: $font-main;
+  
+ 
+}
+.button-follow {
+  margin: 0 auto;
+}  
+.button-primary:hover {
+  background: $primary !important;
+  color: $color-primary !important;
+}
+
+
+
+.favorite-side {
+  padding-right: 10px;
+  padding-top: 7px;
+
+  .btn-favorite {
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+    :hover {
+      color: red;
+      transition: 0.5s ease-in-out;
+
+      transform: scale(1.1);
+    }
+  }
+  .count-favorite {
+    font-size: 12px  !important;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 0.2em 0.5em;
+    border-radius: 1em;   
+    background-color: #f0f2f5;
+    color: #f94d50;
+    font-weight: bold;
+
+  }
+}
+.post-content-box {
+  margin-left: -10px;
+}
+
+@import "~easymde/dist/easymde.min.css";
+
+.editor-toolbar {
+  background-color: #fff;
+  &.fullscreen {
+    z-index: 9999 !important;
+  }
+  button {
+    color:#2c3e50;
+    i {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  .separator {
+    line-height: 20px;
+  }
+}
+
+.CodeMirror {
+  height: calc(100vh - 400px) !important;
+  .CodeMirror-line {
+    line-height: 1.6 !important;
+  }
+}
+
+.editor-answer {
+  .editor-toolbar {
+    display: none;
+    margin-top: -59px;
+    z-index: 9999 !important;
+    box-shadow: 0 -1px 4px #31373d;
+    font-size: 13px;
+  }
+
+  .showToolbar{
+    display: block;
+    transform: scaleY(0);
+  }
+
+  .animated{
+    animation: appear 0.3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes appear {
+    0% {
+        opacity: 0;
+        transform: scaleY(0);
+        transform-origin: bottom;
+    }
+    100% {
+        opacity: 1;
+        transform: scaleY(1);
+        transform-origin: bottom;
+    }
+  }
+
+  .CodeMirror {
+    border-radius: 6px;
+  }
+}

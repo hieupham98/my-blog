@@ -1,0 +1,42 @@
+.sidebar-sticky {
+  top: 112px !important;
+
+  .post-list {
+    max-height: 295px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+   
+  }
+  /* width */
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #ed6f5f;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .post-owner-avatar {
+    .MuiAvatar-root {
+      margin: 0 auto !important;
+
+    }
+  }
+
+  .card-profile-owner {
+    background-color: #f0f2f5 !important;
+    border-radius: 30px;
+  }
+}

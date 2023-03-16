@@ -1,0 +1,24 @@
+@import '../colors';
+.admin-layout {
+  // color: $primary !important;
+  // background-color:  !important;
+  height: 100vh !important;
+
+  .toolbar {
+    background:white !important;
+    box-shadow: none !important;
+    border-bottom:  0.5px solid rgba(179, 176, 176, 0.377);
+    
+    // color: $primary;
+  }
+
+  .drawer-sidebar {
+    .MuiDrawer-paperAnchorDockedLeft {
+      background-color: #0075ef !important;
+      color: white !important;
+      .icon-sidebar {
+        fill: white !important
+      }
+    }
+  }
+}
