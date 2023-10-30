@@ -52,7 +52,7 @@ services:
     volumes:
       - ${PATH_DATA:-./.data}/mysql:/var/lib/mysql
     ports:
-      - ${DB_PORT:-3306}:3306
+      - ${DB_PORT:-3307}:3306
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}

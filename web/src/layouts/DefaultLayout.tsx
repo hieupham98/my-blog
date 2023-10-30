@@ -1,8 +1,9 @@
 import Navbar from './components/NavBar';
 import Container from '@mui/material/Container';
 import Footer from './components/Footer';
+import { WithAuthSync } from '../middleware/auth';
 
-export default function Layout({ children }) {
+const Layout =  ({ children }) => {
   return (
     <>
         <Navbar />
@@ -13,3 +14,6 @@ export default function Layout({ children }) {
     </>
   )
 }
+
+export default WithAuthSync(Layout, 'user');
+

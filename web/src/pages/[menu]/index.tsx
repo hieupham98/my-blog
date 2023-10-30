@@ -23,7 +23,7 @@ const bull = (
 );
 
 
-const IndexPage: NextPage = () => {
+const IndexPage: NextPage = ({ menu }) => {
   const dispatch = useAppDispatch();
   const { data: posts, meta: paginatePosts } = useAppSelector(selectPosts);
 
@@ -38,7 +38,7 @@ const IndexPage: NextPage = () => {
             <div className="all-posts mt-5">
                 <Container>
                   <div className="row">
-                    <h2> All Articles.</h2>
+                    <h2> All Articles {menu}.</h2>
                   </div>
                   <div className="row mt-3">
                     <div className="col-xs-12 col-md-9  left pr-2">

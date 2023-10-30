@@ -66,7 +66,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-const HelloWorld: FunctionComponent = () =>  {
+const NavBar: FunctionComponent = () =>  {
   const router = useRouter()
 
   const active = router.asPath.split('/')[1];
@@ -108,12 +108,12 @@ const HelloWorld: FunctionComponent = () =>  {
           </Link>
           <Link href="/it">
           <li className={`nav-item menu-top ${active === 'it' ? 'active' : ''}` }>
-              <span className="nav-link "> IT </span>
+              <span className="nav-link "> Code </span>
             </li>
           </Link>
-          <Link href="/achitecture">
+          <Link href="/life">
             <li className={`nav-item menu-top ${active === 'achitecture' ? 'active' : ''}` }>
-              <span className="nav-link"> Achitecture </span>
+              <span className="nav-link"> Life </span>
             </li>
           </Link>
           {/* <Link href="/achitecture">
@@ -162,7 +162,7 @@ const HelloWorld: FunctionComponent = () =>  {
                 horizontal: 'right',
               }}
             >
-              <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+              <Typography sx={{ p: 2 }}> Login </Typography>
             </Popover>
           </div>
         </div>
@@ -171,4 +171,4 @@ const HelloWorld: FunctionComponent = () =>  {
     </>)};
 ;
 
-export default HelloWorld;
+export default NavBar;

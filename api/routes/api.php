@@ -24,19 +24,28 @@ Route::group([
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
     Route::group([
-        'middleware' => 'auth:api'
+        'middleware' => 'web'
     ], function() {
         Route::get('logout', 'AuthController@logout');
     });
 });
 
 Route::group([
-    'middleware' => 'auth:api',
+    'namespace' => 'Auth',
+    'prefix' => 'auth',
+], function () {
+    Route::get('/{provider}', 'SocialLogin');
+    Route::get('/{provider}/callback', 'SocialLoginCallback@commonCallback');
+    Route::get('/{provider}/logout', 'SocialLogin@logout');
+});
+
+Route::group([
+    'middleware' => 'web',
 ], function() {
     Route::get('test', 'TaskController@index');
     Route::get('posts', 'PostController@index');
 
-});
 
 Route::get('posts', 'PostController@index');
 
+});
